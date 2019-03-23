@@ -1,0 +1,40 @@
+{% extends 'music/base.html' %}
+{% block body %}
+
+<div id="album-sec" class="my-3">
+    <div class="container-fluid">
+        <div class="row">
+<!--Album Card start -->
+            <div class="card-group">
+                 {% for album in all_albums %}
+                <div class="col-md-4 col-lg-4">
+                    <div class="card width">
+                        <img src="{{album.album_logo.url}}" class="card-img-top" alt="card-img">
+                        <div class="card-body">
+                          <h5 class="card-title text-capitalize">{{ album.album_title }}</h5>
+                          <p class="card-text">{{ album.artist }}</p>
+                            <a href="{% url 'music:detail' album.id %}" class="btn btn-outline-warning text-uppercase">View Details</a>
+                             <!--delete album-->
+                                <form action="{% url 'music:album-delete' album.id %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="album_id" value="{{album_id}}">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
+                                </form>
+                            <!--end of delete album-->
+                            <!--favorite album-->
+                                <form action="" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="album_id" value="{{album_id}}">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="far fa-heart text-danger"></i></button>
+                                </form>
+                            <!--end of favorite album-->
+                        </div>
+                      </div>
+                </div>
+                 {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

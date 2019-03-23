@@ -1,0 +1,68 @@
+{% extends 'music/base.html' %}
+{% block title %}Album Details{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                   <div class="flex-column">
+                      <div class="card m-3">
+                          {% if album.album_logo %}
+                                <img src="{{ album.album_logo.url}}" alt="card-img" class="card-img-top">
+                          {% else %}
+                                <h3>No image to display</h3>
+                          {% endif %}
+                          <div class="card-body">
+                              <h5 class="card-title p-2">{{ album.album_title }}</h5>
+                              <p class="card-text"></p>
+                              <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Gener: {{ album.genre }}</li>
+                                <li class="list-group-item">Artist: {{ album.artist }} </li>
+                                <li class="list-group-item">Date: </li>
+                              </ul>
+                          </div>
+                      </div>
+
+                   </div>
+                </div>
+            </div>
+
+            <main role="main" class="col-md-8 ml-sm-auto col-lg-9 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Album Songs</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <a href="{%url 'music:detail' album.id%}" type="button" class="btn btn-sm btn-outline-secondary">View all</a>
+                        </div>
+                    </div>
+                </div>
+<!--                Table starts form here-->
+                <div class="table-responsive bg-white">
+                    <table class="table table-bordered table-hover table-md">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Audio file</th>
+                                <th>Favourite</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for song in album.song_set.all %}
+                                <tr>
+                                    <td>{{ song.song_title}}</td>
+                                    <td>{{ song.file_type}}</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+         </div>
+</div>
+{% endblock body %}

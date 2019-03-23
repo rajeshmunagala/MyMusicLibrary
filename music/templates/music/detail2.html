@@ -1,0 +1,59 @@
+{% extends 'music/base.html' %}
+{% block title %}Album Details{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <a href="{% url 'music:detail' album.id %}">
+                    {% if album.album_logo %}
+                    <img src="{{ album.album_logo.url}}" alt="" class="img-responsive">
+                    {% else %}
+                        <h3>No image to display</h3>
+                    {% endif %}
+                    </a>
+                    <h1>{{ album.album_title }}<small><br>{{ album.genre }}</small></h1>
+                    <h2>{{ album.artist }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--song info-->
+<div class="col-sm-8 col-md-9">
+    <ul class="nav nav-pills" style="margin-bottom:10px;">
+        <li class="active" role="presentation"><a href="{%url 'music:detail' album.id%}">View all</a></li>
+
+    </ul>
+    <div class="card">
+        <div class="card-body">
+            <h3>All Songs</h3>
+            {% if error_message %}
+                <p><strong>{{ error_message }}</strong></p>
+            {% endif %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Audio File</th>
+                    <th>Favorite</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for song in album.song_set.all %}
+                        <tr>
+                            <td>{{ song.song_title}}- {{ song.file_type}}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
